@@ -26,10 +26,48 @@ require 'TimeFeature'
 
 Use Like
 
+Time.now
+ => 2019-04-18 19:36:31 +0530
+
 Time.now.to_second
  => 70591
+
 Time.now.to_second.to_time
  => "19:36:31" 
+
+ DateTime.parse(Time.now.to_second.to_time)
+ => Thu, 18 Apr 2019 19:36:31 +0000
+
+
+ In Rails DB 
+
+ class Timeslot
+  attr_accessor :start_t,:end_t
+  include Mongoid::Document
+
+  field :start, type: Integer,default: 0
+  field :end, type: Integer,default: 0
+
+  include Mongoid::Timestamps
+  validates :start,:end,presence: true , numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 86399,  only_integer: true }
+  before_validation :get_data
+
+  scope :active_timeslot, -> { where(:$and => [{:start.lte => Time.now.to_second, :end.gte=> Time.now.to_second}]) }
+
+  after_find -> {
+    self.start_t = DateTime.parse(self.start.to_time)&.strftime("%R")
+    self.end_t = DateTime.parse(self.end.to_time)&.strftime("%R")
+  }
+  after_initialize-> {
+    self.start_t = Time.now.beginning_of_day.localtime&.strftime("%R") unless self.start_t.present?
+    self.end_t = Time.now.end_of_day.localtime&.strftime("%R") unless self.end_t.present?
+  }
+  def get_data
+    self.start = self.start_t.to_time.to_second if self.start_t
+    self.end =  self.end_t.to_time.to_second if self.end_t
+  end
+end
+ 
 
 ## Development
 
