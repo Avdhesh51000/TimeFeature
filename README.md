@@ -21,8 +21,15 @@ Or install it yourself as:
     $ gem install TimeFeature
 
 ## Usage
+Require this to initializers
+require 'TimeFeature'
 
-TODO: Write usage instructions here
+Use Like
+
+Time.now.to_second
+ => 70591
+Time.now.to_second.to_time
+ => "19:36:31" 
 
 ## Development
 

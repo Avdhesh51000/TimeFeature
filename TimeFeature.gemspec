@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Rails DB Time Solution (Sql or Non-Sql (postgres or MongoDb)).}
   spec.description   = %q{In Rails DB only Time can not be saved so using this gem get the solution.}
-  # spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/Avdhesh51000/TimeFeature"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   if spec.respond_to?(:metadata)
     spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
-    # spec.metadata["homepage_uri"] = spec.homepage
+    spec.metadata["homepage_uri"] = spec.homepage
     # spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
     # spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
   else
